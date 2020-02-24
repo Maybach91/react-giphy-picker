@@ -13,6 +13,9 @@ export default class extends Component {
       giphyTrendingUrl: 'https://api.giphy.com/v1/gifs/trending?api_key=dc6zaTOxFJmzC'
     }
 
+  }
+
+  componentDidMount () {
     this.loadTrendingGifs()
   }
 
