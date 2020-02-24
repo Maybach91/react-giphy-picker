@@ -3,14 +3,12 @@ node_modules
 .node-version
 # Project dependencies
 .cache
-node_modules
+
 yarn-error.log
-package-lock.json
-yarn.lock
 
 # Build directory
 /public
-.DS_Store
+
 
 # Created by .ignore support plugin (hsz.mobi)
 ### JetBrains template
