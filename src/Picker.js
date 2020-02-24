@@ -84,7 +84,7 @@ export default class extends Component {
     const { gifs } = this.state
     const { visible, modal } = this.props
     return (
-      <Wrapper>
+      <Wrapper className={this.props.className}>
         <GiphyPickerWrapper visible={visible} modal={modal}>
           <Input
             name='giphy-search'
