@@ -9,8 +9,8 @@ export default class extends Component {
     this.state = {
       gifs: [],
       searchValue: '',
-      giphySearchUrl: 'http://api.giphy.com/v1/gifs/search?api_key=dc6zaTOxFJmzC',
-      giphyTrendingUrl: 'http://api.giphy.com/v1/gifs/trending?api_key=dc6zaTOxFJmzC'
+      giphySearchUrl: 'https://api.giphy.com/v1/gifs/search?api_key=dc6zaTOxFJmzC',
+      giphyTrendingUrl: 'https://api.giphy.com/v1/gifs/trending?api_key=dc6zaTOxFJmzC'
     }
 
     this.loadTrendingGifs()
@@ -32,29 +32,31 @@ export default class extends Component {
   }
 
   loadTrendingGifs () {
-    const {giphyTrendingUrl} = this.state
+    const { giphyTrendingUrl } = this.state
     fetch(giphyTrendingUrl, {
       method: 'get'
     }).then((response) => {
       return response.json()
     }).then((response) => {
       let gifs = response.data.map((g, i) => {return g.images})
-      this.setState({gifs})
+      this.setState({ gifs })
     })
   }
 
   searchGifs () {
-    const {giphySearchUrl, searchValue} = this.state
-    if (searchValue.length < 1) { return }
+    const { giphySearchUrl, searchValue } = this.state
+    if (searchValue.length < 1) {
+      return
+    }
     let url = giphySearchUrl + '&q=' + searchValue.replace(' ', '+')
-    this.setState({gifs: []})
+    this.setState({ gifs: [] })
     fetch(url, {
       method: 'get'
     }).then((response) => {
       return response.json()
     }).then((response) => {
       let gifs = response.data.map((g, i) => {return g.images})
-      this.setState({gifs})
+      this.setState({ gifs })
     })
   }
 
@@ -64,7 +66,7 @@ export default class extends Component {
 
   onSearchChange (event) {
     event.stopPropagation()
-    this.setState({searchValue: event.target.value}, () => this.searchGifs())
+    this.setState({ searchValue: event.target.value }, () => this.searchGifs())
   }
 
   onKeyDown (event) {
@@ -75,12 +77,12 @@ export default class extends Component {
   }
 
   reset () {
-    this.setState({searchValue: ''})
+    this.setState({ searchValue: '' })
   }
 
-  render() {
-    const {gifs} = this.state
-    const {visible, modal} = this.props
+  render () {
+    const { gifs } = this.state
+    const { visible, modal } = this.props
     return (
       <Wrapper>
         <GiphyPickerWrapper visible={visible} modal={modal}>
@@ -93,7 +95,7 @@ export default class extends Component {
             onChange={this.onSearchChange.bind(this)}
             value={this.state.searchValue}
             onKeyDown={this.onKeyDown.bind(this)}
-            placeholder='Search for gifs' />
+            placeholder='Search for gifs'/>
           <GiphyWrapper>
             {
               gifs.map((g, i) => {
@@ -103,7 +105,7 @@ export default class extends Component {
                     className='giphy-gif'
                     key={i}
                     src={gifUrl}
-                    onClick={() => {this.onGiphySelect(g)}} />
+                    onClick={() => {this.onGiphySelect(g)}}/>
                 )
               })
             }
@@ -114,11 +116,11 @@ export default class extends Component {
   }
 }
 
-const Wrapper = styled.div`
+export const Wrapper = styled.div`
   position: relative;
 `
 
-const GiphyPickerWrapper = styled.div`
+export const GiphyPickerWrapper = styled.div`
   position: ${props => props.modal ? 'absolute' : 'static'};
   opacity: ${props => props.visible ? 1 : 0};
   transition: opacity 300ms linear;
@@ -146,7 +148,7 @@ const GiphyPicker = styled.div`
   }
 `
 
-const GiphyWrapper = styled.div`
+export const GiphyWrapper = styled.div`
   display: flex;
   flex-direction: column;
   padding: 0.8rem;
@@ -155,14 +157,14 @@ const GiphyWrapper = styled.div`
   align-items: baseline;
 `
 
-const Giphy = styled.img`
+export const Giphy = styled.img`
   cursor: pointer;
   justify-content: center;
   align-items: center;
   padding: 0.21rem;
 `
 
-const Input = styled.input`
+export const Input = styled.input`
   background-color: transparent;
   border: 1px solid #ddd;
   border-radius: 2px;
